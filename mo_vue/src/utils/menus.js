@@ -6,8 +6,9 @@ export const initMenu = (router, store) => {
     }
     getRequest("/system/config/menu").then(data => {
         if (data) {
-            console.log("fmtRoutes:" + data[0].id);
+
             let fmtRoutes = formatRoutes(data);
+            console.log("fmtRoutes"+fmtRoutes[0]);
             router.addRoutes(fmtRoutes);
             store.commit('initRoutes', fmtRoutes);
             store.dispatch('connect');
@@ -25,9 +26,9 @@ export const formatRoutes = (routes) => {
             iconCls,
             children
         } = router;
-        // if (children && children instanceof Array) {
-        //     children = formatRoutes(children);
-        // }
+        if (children && children instanceof Array) {
+            children = formatRoutes(children);
+        }
         let fmRouter = {
             path: path,
             name: name,
@@ -35,21 +36,15 @@ export const formatRoutes = (routes) => {
             meta: meta,
             children: children,
             component(resolve) {
-                // if (component.startsWith("Home")) {
-                //     require(['../views/' + component + '.vue'], resolve);
-                // } else if (component.startsWith("Emp")) {
-                //     require(['../views/emp/' + component + '.vue'], resolve);
-                // } else if (component.startsWith("Per")) {
-                //     require(['../views/per/' + component + '.vue'], resolve);
-                // } else if (component.startsWith("Sal")) {
-                //     require(['../views/sal/' + component + '.vue'], resolve);
-                // } else if (component.startsWith("Sta")) {
-                //     require(['../views/sta/' + component + '.vue'], resolve);
-                // } else if (component.startsWith("Sys")) {
-                //     require(['../views/sys/' + component + '.vue'], resolve);                    
-                // }
+                if (component.startsWith("Home")) {
+                    require(['../views/' + component + '.vue'], resolve);
+                } else if (component.startsWith("Review")) {
+                    require(['../views/review/' + component + '.vue'], resolve);
+
+                }
             }
         }
+        console.log("fmRouter"+fmRouter.component);
         fmRoutes.push(fmRouter);
     })
     return fmRoutes;

@@ -28,7 +28,6 @@ public class LoginController {
     MoUserService moUserService;
     @PostMapping("/login")
     public Object login(@RequestBody String body, HttpServletRequest request){
-        System.out.println("12312");
         var username = JacksonUtil.parseString(body, "username");
         var password = JacksonUtil.parseString(body, "password");
 

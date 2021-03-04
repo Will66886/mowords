@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midnight.mapper.MoWordsMapper">
+    <resultMap id="BaseResultMap" type="com.midnight.model.MoWords">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="word" property="word" jdbcType="VARCHAR"/>
+        <result column="translation" property="translation" jdbcType="VARCHAR"/>
+        <result column="pronunciation" property="pronunciation" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,word,translation,pronunciation
+    </sql>
+    <select id="getMoWordsByPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from mo_db.mo_words where word like concat('%',#{word},'%')
+        <if test="page !=null and size !=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+    <select id="getMoWord" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from mo_db.mo_words where word = #{word}
+    </select>
+    <insert id="addMoWords" parameterType="java.util.List">
+        insert into mo_db.mo_words  (word,translation,pronunciation) values
+        <foreach collection ="list" item="moWords" index= "index" separator =",">
+        (
+        #{moWords.word,jdbcType=VARCHAR},#{moWords.translation,jdbcType=VARCHAR},#{moWords.pronunciation,jdbcType=VARCHAR}
+        )
+        </foreach >
+        <!--(#{word,jdbcType=VARCHAR},#{translation,jdbcType=VARCHAR},#{pronunciation,jdbcType=VARCHAR})-->
+    </insert>
+<!--    <select id="queryByName" resultMap="BaseResultMap">-->
+<!--        select <include refid="Base_Column_List"/> from mo_db.mo_user where username = #{userName}-->
+<!--    </select>-->
+</mapper>
