@@ -20,10 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-//@CrossOrigin
 public class LoginController {
-    @Autowired
-    StringRedisTemplate redisTemplate;
+
     @Autowired
     MoUserService moUserService;
     @PostMapping("/login")
@@ -50,7 +48,6 @@ public class LoginController {
 
         
         var token = UserTokenManager.generateToken(user.getId());
-//        redisTemplate.opsForValue().set("token",token);
         HashMap<String, Object> map = new HashMap<>();
         map.put("token",token);
         map.put("user",user);
