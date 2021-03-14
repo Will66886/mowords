@@ -1,19 +1,21 @@
 package com.midnight.model;
 
-public class RecitingWord {
-    private int id;
-    private int wordId;
-    private int userId;
-    private int knowTimes;
-    private int vagueTimes;
-    private int forgetTimes;
+import java.io.Serializable;
 
-    public int getId() {
-        return id;
+public class RecitingWord implements Serializable {
+    private int wordId;
+    private int learnTimes;//学习次数
+    private int iterations;//当前状态维系次数
+    private WordStatus status;//0-未学，1-认识，2-模糊，3-忘记
+
+    public RecitingWord() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public RecitingWord(int wordId, int learnTimes, int iterations, WordStatus status) {
+        this.wordId = wordId;
+        this.learnTimes = learnTimes;
+        this.iterations = iterations;
+        this.status = status;
     }
 
     public int getWordId() {
@@ -24,35 +26,38 @@ public class RecitingWord {
         this.wordId = wordId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getLearnTimes() {
+        return learnTimes;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setLearnTimes(int learnTimes) {
+        this.learnTimes = learnTimes;
     }
 
-    public int getKnowTimes() {
-        return knowTimes;
+    public int getIterations() {
+        return iterations;
     }
 
-    public void setKnowTimes(int knowTimes) {
-        this.knowTimes = knowTimes;
+    public void setIterations(int iterations) {
+        this.iterations = iterations;
     }
 
-    public int getVagueTimes() {
-        return vagueTimes;
+    public WordStatus getStatus() {
+        return status;
     }
 
-    public void setVagueTimes(int vagueTimes) {
-        this.vagueTimes = vagueTimes;
+    public void setStatus(WordStatus status) {
+        this.status = status;
     }
 
-    public int getForgetTimes() {
-        return forgetTimes;
-    }
-
-    public void setForgetTimes(int forgetTimes) {
-        this.forgetTimes = forgetTimes;
+    @Override
+    public String toString() {
+        return "RecitingWord{" +
+                "wordId=" + wordId +
+                ", learnTimes=" + learnTimes +
+                ", iterations=" + iterations +
+                ", status=" + status +
+                '}';
     }
 }
+

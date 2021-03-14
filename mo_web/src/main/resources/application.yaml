@@ -22,9 +22,15 @@ spring:
 #    url: jdbc:mysql://localhost:3306/mo_db?useSSL=false&amp&useUnicode=false&amp&characterEncoding=UTF-8&serverTimezone=GMT
 #    driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: localhost
+    host: 192.168.254.136
     port: 6379
     database: 0
+  rabbitmq:
+      host: 192.168.254.136
+      port: 5672
+      username: ems
+      password: 123
+      virtual-host: /ems
 mybatis:
   type-aliases-package: com.midnight.model
   mapper-locations: classpath:com/midnight/mapper/*.xml

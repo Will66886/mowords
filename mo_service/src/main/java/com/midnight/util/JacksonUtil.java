@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.midnight.model.RecitingWord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -161,6 +162,16 @@ public class JacksonUtil {
         }
         return null;
     }
+    public static <T> List<T> toList(String data) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(data, new TypeReference<List<T>>() {
+            });
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return null;
+    }
 
     public static String toJson(Object data) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -171,4 +182,14 @@ public class JacksonUtil {
         }
         return null;
     }
+    public static<T> T toObject(String json,TypeReference<T> typeReference){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(json,typeReference);
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
 }
